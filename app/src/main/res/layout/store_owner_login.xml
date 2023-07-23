@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StoreOwnerLogin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/storeOwnerUsernameLogin"
+            android:layout_width="259dp"
+            android:layout_height="55dp"
+            android:ems="10"
+            android:hint="@string/store_owner_username_placeholder"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@+id/storeOwnerPasswordLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.693" />
+
+        <EditText
+            android:id="@+id/storeOwnerPasswordLogin"
+            android:layout_width="258dp"
+            android:layout_height="55dp"
+            android:ems="10"
+            android:hint="@string/store_owner_password_placeholder"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.549"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.426" />
+
+        <Button
+            android:id="@+id/submitLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="@string/store_owner_submit_login_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/storeOwnerPasswordLogin" />
+
+        <Button
+            android:id="@+id/storeOwnerRegisterRedirect"
+            android:layout_width="140dp"
+            android:layout_height="51dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/store_owner_register_redirect_button"
+            android:textColor="#000000"
+            android:textColorHighlight="#FDFDFD"
+            android:textColorHint="#000000"
+            android:textColorLink="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/submitLogin" />
+
+        <Button
+            android:id="@+id/storeOwnerShopperRedirect"
+            android:layout_width="174dp"
+            android:layout_height="77dp"
+            android:backgroundTint="#FBF9F9"
+            android:text="@string/store_owner_shopper_redirect_button"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/storeOwnerRegisterRedirect"
+            app:layout_constraintVertical_bias="0.328" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
