@@ -13,7 +13,7 @@
         android:padding="16dp">
 
         <EditText
-            android:id="@+id/storeOwnerUsernameLogin"
+            android:id="@+id/storeOwnerEmailLogin"
             android:layout_width="259dp"
             android:layout_height="55dp"
             android:ems="10"
