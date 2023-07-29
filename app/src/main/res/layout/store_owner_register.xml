@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#013220"
+    android:orientation="vertical"
+    android:padding="40dp"
+    tools:context=".StoreOwnerRegister">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:gravity="center"
+        android:text="@string/store_owner_register"
+        android:textColor="@color/lilac"
+
+
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/submitStoreOwnerRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/store_owner_submit_register_button"
+        android:textColor="@color/teaGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeOwnerStoreNameRegister" />
+
+    <Button
+        android:id="@+id/storeOwnerLoginRedirect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/store_owner_login"
+        android:textColor="@color/teaGreen"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/switchToShopperLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submitStoreOwnerRegister"
+        app:layout_constraintVertical_bias="0.684" />
+
+    <Button
+        android:id="@+id/switchToShopperLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:background="@color/darkGreen"
+        android:text="@string/store_owner_shopper_redirect_button"
+        android:textColor="@color/teaGreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/storeOwnerPasswordRegister"
+        android:layout_width="match_parent"
+        android:layout_height="48sp"
+        android:layout_marginTop="8dp"
+        android:background="#E7D1FF"
+        android:hint="@string/password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeOwnerEmailRegister" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/storeOwnerEmailRegister"
+        android:layout_width="match_parent"
+        android:layout_height="48sp"
+        android:layout_marginTop="72dp"
+        android:background="@color/lilac"
+        android:hint="@string/emailShopper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/storeOwnerStoreNameRegister"
+        android:layout_width="match_parent"
+        android:layout_height="48sp"
+        android:layout_marginTop="8dp"
+        android:background="#E7D1FF"
+        android:hint="@string/store_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeOwnerPasswordRegister" />
+</androidx.constraintlayout.widget.ConstraintLayout>
