@@ -44,7 +44,7 @@ public class StoreOwnerLogin extends AppCompatActivity {
         registerRedirect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StoreOwnerLogin.this, StoreOwnerRegister.class);
+                Intent intent = new Intent(getApplicationContext(), StoreOwnerRegister.class);
                 startActivity(intent);
                 finish();
             }
@@ -53,7 +53,7 @@ public class StoreOwnerLogin extends AppCompatActivity {
         shopperRedirect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StoreOwnerLogin.this, ShopperLogin.class);
+                Intent intent = new Intent(getApplicationContext(), ShopperLogin.class);
                 startActivity(intent);
                 finish();
             }

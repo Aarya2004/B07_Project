@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ShopperRegister extends AppCompatActivity {
     TextInputEditText editTextEmail;
@@ -26,6 +27,19 @@ public class ShopperRegister extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBarShopper;
     TextView textViewShopper;
+
+    @Override
+    public void onStart() {
+        //check if user is already logged in. If yes open main activity
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
 
 
@@ -79,6 +93,9 @@ public class ShopperRegister extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(ShopperRegister.this, "Account created",
                                             Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), ShopperLogin.class);
+                                    startActivity(intent);
+                                    finish();
 
 
                                 } else {
