@@ -6,10 +6,26 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="store_owner_login_fragment">Store Owner Login!</string>
+
+
     <string name="store_owner_username_placeholder">Enter Username</string>
     <string name="store_owner_password_placeholder">Enter Password</string>
     <string name="store_owner_submit_login_button">Login!</string>
     <string name="store_owner_register_redirect_button">Register!</string>
     <string name="store_owner_shopper_redirect_button">Not a Store Owner? Enter as a shopper</string>
+
+
+    <string name="login_as_a_shopper">Login as a Shopper</string>
+    <string name="register_as_a_shopper">Register as a Shopper</string>
+
+
+
+    <string name="emailShopper">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+
+
+    <string name="switchOwner">Switch to Owner</string>
+
+
 </resources>
