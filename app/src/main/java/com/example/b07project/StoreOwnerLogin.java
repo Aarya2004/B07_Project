@@ -37,7 +37,12 @@ public class StoreOwnerLogin extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                check_user_exists();
+                check_user_exists(view);
+                if(isFound){
+                    Intent intent = new Intent(getApplicationContext(), StoreOwnerHomepage.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -62,32 +67,21 @@ public class StoreOwnerLogin extends AppCompatActivity {
     }
 
 
-    public void check_user_exists(){
+    public void check_user_exists(View view){
         DatabaseReference db = this.firedb.getReference();
-
-        db.child("Owners").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("Fetch Owner data", "Error getting data", task.getException());
-                }
-                else {
-                    Log.i("Fetch Owner data", task.getResult().getValue().toString());
-                }
-            }
-        });
 
         EditText userEmailText = (EditText) findViewById(R.id.storeOwnerEmailLogin);
         String email = userEmailText.getText().toString();
         String id = String.valueOf(email.hashCode());
         userEmailText.setText("");
         final String[] dbpassword = new String[1];
+        final String[] dbstorename = new String[1];
         db.child("Owners").orderByKey().get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
-                    Toast myToast = Toast.makeText(StoreOwnerLogin.this, "Database Error!", Toast.LENGTH_SHORT);
+                    Toast myToast = Toast.makeText(view.getContext(), "Database Error!", Toast.LENGTH_SHORT);
                     myToast.show();
                 } else {
                     for (DataSnapshot ds : task.getResult().getChildren()) {
@@ -95,14 +89,15 @@ public class StoreOwnerLogin extends AppCompatActivity {
                         if (value == id) {
                             isFound = true;
                             dbpassword[0] = ds.child(value).child("password").getValue().toString();
+                            dbstorename[0] = ds.child(value).child("Store Name").getValue().toString();
                         }
                     }
                 }
             }
         });
 
-        if(isFound == false){
-            Toast myToast = Toast.makeText(StoreOwnerLogin.this,"No such user exists!", Toast.LENGTH_SHORT);
+        if(!isFound){
+            Toast myToast = Toast.makeText(view.getContext(),"No such user exists!", Toast.LENGTH_SHORT);
             myToast.show();
             return;
         }
@@ -111,13 +106,16 @@ public class StoreOwnerLogin extends AppCompatActivity {
         String password = userPassText.getText().toString();
         userPassText.setText("");
 
-        if(password != dbpassword[0]){
-            Toast myToast = Toast.makeText(StoreOwnerLogin.this,"Incorrect password!", Toast.LENGTH_SHORT);
+        if(!password.equals(dbpassword[0])){
+            isFound = false;
+            Toast myToast = Toast.makeText(view.getContext(),"Incorrect password!", Toast.LENGTH_SHORT);
             myToast.show();
             return;
         }else{
-            Toast myToast = Toast.makeText(StoreOwnerLogin.this,"Logged in as Customer!", Toast.LENGTH_SHORT);
+            Toast myToast = Toast.makeText(view.getContext(),"Logged in as Store Owner!", Toast.LENGTH_SHORT);
             myToast.show();
+            StoreOwner User = new StoreOwner(dbstorename[0], email, password);
+            StoreOwnerHomepage Home = new StoreOwnerHomepage(User);
         }
     }
 }

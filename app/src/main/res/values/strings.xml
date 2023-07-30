@@ -29,6 +29,10 @@
 
 
     <string name="switchOwner">Switch to Owner</string>
+    <string name="store_owner_menu_products">Products</string>
+    <string name="store_owner_menu_orders">Orders</string>
+    <string name="store_owner_menu_logout">Logout</string>
+    <string name="logged_in_as_store_owner">Logged in as Store Owner!</string>
 
 
 </resources>
