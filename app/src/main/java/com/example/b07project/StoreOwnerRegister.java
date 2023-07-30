@@ -93,7 +93,7 @@ public class StoreOwnerRegister extends AppCompatActivity {
 
         boolean userExists = user_exists(db, storeOwnerId);
         if(userExists == true){
-            Toast myToast = Toast.makeText(StoreOwnerRegister.this, "User Already Exists!", Toast.LENGTH_SHORT);
+            Toast myToast = Toast.makeText(getApplicationContext(), "User Already Exists!", Toast.LENGTH_SHORT);
             myToast.show();
             return;
         }

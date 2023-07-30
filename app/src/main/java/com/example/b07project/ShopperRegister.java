@@ -27,19 +27,22 @@ public class ShopperRegister extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBarShopper;
     TextView textViewShopper;
+    Button ownerRegisterSwitch;
 
-    @Override
-    public void onStart() {
-        //check if user is already logged in. If yes open main activity
-        super.onStart();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+//
+//    @Override
+//    public void onStart() {
+//        //check if user is already logged in. If yes open main activity
+//        super.onStart();
+//
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 
 
 
@@ -52,12 +55,22 @@ public class ShopperRegister extends AppCompatActivity {
         editTextPassword = findViewById(R.id.shopperPassword);
         buttonRegister = findViewById(R.id.button_registerShopper);
         progressBarShopper = findViewById(R.id.progressBarShopper);
+        ownerRegisterSwitch = findViewById(R.id.ownerSwitch);
         textViewShopper = findViewById(R.id.loginNow);
         textViewShopper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //to open the login activity intent
                 Intent intent = new Intent(getApplicationContext(), ShopperLogin.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        ownerRegisterSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), StoreOwnerLogin.class);
                 startActivity(intent);
                 finish();
             }

@@ -26,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void shopperLogin(View view) {
+        Intent intent = new Intent(this, ShopperLogin.class);
+        startActivity(intent);
+    }
+
 
     public void ownerLogin(View view) {
         Intent intent = new Intent(this, StoreOwnerLogin.class);

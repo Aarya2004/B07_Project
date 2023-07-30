@@ -37,18 +37,20 @@ public class ShopperLogin extends AppCompatActivity{
     ProgressBar progressBarShopper;
     TextView textViewShopper;
 
-    @Override
-    public void onStart() {
-        //check if user is already logged in. If yes open main activity
-        super.onStart();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+    Button switchToOwner;
+//
+//    @Override
+//    public void onStart() {
+//        //check if user is already logged in. If yes open main activity
+//        super.onStart();
+//
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 
 
     @Override
@@ -62,11 +64,23 @@ public class ShopperLogin extends AppCompatActivity{
         buttonLogin = findViewById(R.id.button_loginShopper);
         progressBarShopper = findViewById(R.id.progressBarShopper);
         textViewShopper = findViewById(R.id.RegisterNow);
+        switchToOwner = findViewById(R.id.ownerSwitch);
+
         textViewShopper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //to open the login activity intent
                 Intent intent = new Intent(getApplicationContext(), ShopperRegister.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+        switchToOwner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), StoreOwnerLogin.class);
                 startActivity(intent);
                 finish();
             }
