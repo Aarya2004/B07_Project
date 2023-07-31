@@ -5,7 +5,10 @@ public class Account {
     private String email;
     private String password;
 
-    public Account(String type, String email, String password){
+    private String id;
+
+    public Account(String id, String type, String email, String password){
+        setId(id);
         setType(type);
         setEmail(email);
         setPass(password);
@@ -22,6 +25,10 @@ public class Account {
     public String getPass(){
         return password;
     }
+
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
 
     public void setType(String type){
         this.type = type;

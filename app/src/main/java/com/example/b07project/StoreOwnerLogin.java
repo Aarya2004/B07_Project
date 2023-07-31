@@ -9,17 +9,13 @@ import android.widget.Toast;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class StoreOwnerLogin extends AppCompatActivity {
 
@@ -38,11 +34,6 @@ public class StoreOwnerLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 check_user_exists(view);
-                if(isFound){
-                    Intent intent = new Intent(getApplicationContext(), StoreOwnerHomepage.class);
-                    startActivity(intent);
-                    finish();
-                }
             }
         });
 
@@ -85,8 +76,8 @@ public class StoreOwnerLogin extends AppCompatActivity {
                     myToast.show();
                 } else {
                     for (DataSnapshot ds : task.getResult().getChildren()) {
-                        String value = ds.getValue().toString();
-                        if (value == id) {
+                        String value = String.valueOf(ds.getValue());
+                        if (value.equals(id)) {
                             isFound = true;
                             dbpassword[0] = ds.child(value).child("password").getValue().toString();
                             dbstorename[0] = ds.child(value).child("Store Name").getValue().toString();
@@ -114,8 +105,11 @@ public class StoreOwnerLogin extends AppCompatActivity {
         }else{
             Toast myToast = Toast.makeText(view.getContext(),"Logged in as Store Owner!", Toast.LENGTH_SHORT);
             myToast.show();
-            StoreOwner User = new StoreOwner(dbstorename[0], email, password);
-            StoreOwnerHomepage Home = new StoreOwnerHomepage(User);
+            StoreOwner owner = new StoreOwner(id, dbstorename[0], email, password);
+            new StoreOwnerMain(owner);
+            Intent intent = new Intent(getApplicationContext(), StoreOwnerHomepage.class);
+            startActivity(intent);
+            finish();
         }
     }
 }

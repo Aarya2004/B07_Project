@@ -3,8 +3,8 @@ package com.example.b07project;
 public class StoreOwner extends Account{
     private String storeName;
 
-    public StoreOwner(String storeName, String email, String password){
-        super("StoreOwner", email, password);
+    public StoreOwner(String id, String storeName, String email, String password){
+        super(id, "StoreOwner", email, password);
         setStoreName(storeName);
     }
 

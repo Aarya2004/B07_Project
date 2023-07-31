@@ -104,7 +104,8 @@ public class StoreOwnerRegister extends AppCompatActivity {
         db.child("Owners").child(storeOwnerId).child("email").setValue(storeOwnerEmail);
         db.child("Owners").child(storeOwnerId).child("password").setValue(storeOwnerPassword);
         db.child("Owners").child(storeOwnerId).child("Store Name").setValue(storeOwnerStoreName);
-        db.child("Stores").child(storeId).child("Store Name").setValue(storeOwnerStoreName);
+        db.child("Owners").child(storeOwnerId).child("Products");
+        db.child("Owners").child(storeOwnerId).child("Orders");
     }
 
     public boolean user_exists(DatabaseReference db, String id){
@@ -119,7 +120,7 @@ public class StoreOwnerRegister extends AppCompatActivity {
                 } else {
                     for (DataSnapshot ds : task.getResult().getChildren()) {
                         String value = ds.getValue().toString();
-                        if (value == id) {
+                        if (value.equals(id)) {
                             isFound[0] = true;
                             break;
                         }
