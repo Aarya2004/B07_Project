@@ -33,11 +33,13 @@ public class ShopperLogin extends AppCompatActivity{
     TextInputEditText editTextEmail;
     TextInputEditText editTextPassword;
     Button buttonLogin;
-    FirebaseAuth mAuth;
+    FirebaseDatabase firedb;
     ProgressBar progressBarShopper;
     TextView textViewShopper;
 
     Button switchToOwner;
+
+    boolean isFound;
 //
 //    @Override
 //    public void onStart() {
@@ -57,14 +59,14 @@ public class ShopperLogin extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopper_login);
-
-        mAuth = FirebaseAuth.getInstance();
+        firedb = FirebaseDatabase.getInstance("https://b07-project-45a16-default-rtdb.firebaseio.com/");
         editTextEmail = findViewById(R.id.shopperEmail);
         editTextPassword = findViewById(R.id.shopperPassword);
         buttonLogin = findViewById(R.id.button_loginShopper);
         progressBarShopper = findViewById(R.id.progressBarShopper);
         textViewShopper = findViewById(R.id.RegisterNow);
         switchToOwner = findViewById(R.id.ownerSwitch);
+        isFound = false;
 
         textViewShopper.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,38 +109,58 @@ public class ShopperLogin extends AppCompatActivity{
                     return;
                 }
 
-                //call sign in with email and pass using firebase doc
-
-                mAuth.signInWithEmailAndPassword(emailShopper, passwordShopper)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBarShopper.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), ShopperHomepage.class);
-                                    startActivity(intent);
-                                    finish();
-
-                                } else {
-
-                                    Toast.makeText(ShopperLogin.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-
-                                }
-                            }
-                        });
-
+                check_user_exists(view, emailShopper, passwordShopper);
 
             }
         });
     }
 
+    public void check_user_exists(View view, String emailShopper, String passwordShopper){
+        DatabaseReference db = this.firedb.getReference();
+        String idShopper = String.valueOf(emailShopper.hashCode());
+        DatabaseReference query = db.child("Shoppers").child(idShopper);
 
+        query.addValueEventListener(new ValueEventListener() {
 
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                String dbpassword = null;
+                String dbstorename = null;
+                isFound = snapshot.exists();
+                if(isFound){
+                    for(DataSnapshot child: snapshot.getChildren()){
+                        if(String.valueOf(child.getKey()).equals("password")){
+                            dbpassword = String.valueOf(child.getValue());
+                        }
+                    }
+                }
 
+                if(!isFound){
+                    Toast myToast = Toast.makeText(view.getContext(),"No such user exists!", Toast.LENGTH_SHORT);
+                    myToast.show();
+                    return;
+                }
 
+                if(!(passwordShopper.equals(dbpassword))){
+                    isFound = false;
+                    Toast myToast = Toast.makeText(view.getContext(),"Incorrect password!", Toast.LENGTH_SHORT);
+                    myToast.show();
+                    return;
+                }else{
+                    Shopper shopper = new Shopper(idShopper, emailShopper, passwordShopper);
+                    new ShopperMain(shopper);
+                    Intent intent = new Intent(ShopperLogin.this, ShopperHomepage.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+
+    }
 
 }
 
