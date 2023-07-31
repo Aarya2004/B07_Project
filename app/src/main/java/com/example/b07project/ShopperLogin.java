@@ -116,7 +116,7 @@ public class ShopperLogin extends AppCompatActivity{
                                 progressBarShopper.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), ShopperHomepage.class);
                                     startActivity(intent);
                                     finish();
 

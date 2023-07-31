@@ -10,10 +10,6 @@ public class StoreOwnerHomepage extends AppCompatActivity {
 
     StoreOwner User;
 
-    public StoreOwnerHomepage(StoreOwner User){
-        this.User = User;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +29,7 @@ public class StoreOwnerHomepage extends AppCompatActivity {
 
     public void logout(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        StoreOwnerMain.ownerLoggedout();
         startActivity(intent);
     }
 

@@ -24,6 +24,9 @@
 
         <activity android:name=".ShopperLogin"></activity>
         <activity android:name=".ShopperRegister"></activity>
+        <activity android:name=".ShopperHomepage"></activity>
+
+
 
         <activity
             android:name=".MainActivity"
@@ -37,5 +40,8 @@
             </intent-filter>
         </activity>
     </application>
+
+
+
 
 </manifest>

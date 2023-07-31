@@ -1,13 +1,19 @@
 package com.example.b07project;
 
 public class StoreOwnerMain {
-    StoreOwner owner;
+    static StoreOwner owner;
 
     public StoreOwnerMain(StoreOwner owner){
-        this.owner = owner;
+        if(this.owner == null){
+            this.owner = owner;
+        }
     }
 
     public StoreOwner ownerLoggedIn(){
         return owner;
+    }
+
+    public static void ownerLoggedout(){
+        owner = null;
     }
 }

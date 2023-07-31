@@ -14,8 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class StoreOwnerLogin extends AppCompatActivity {
 
@@ -64,52 +66,55 @@ public class StoreOwnerLogin extends AppCompatActivity {
         EditText userEmailText = (EditText) findViewById(R.id.storeOwnerEmailLogin);
         String email = userEmailText.getText().toString();
         String id = String.valueOf(email.hashCode());
-        userEmailText.setText("");
-        final String[] dbpassword = new String[1];
-        final String[] dbstorename = new String[1];
-        db.child("Owners").orderByKey().get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                    Toast myToast = Toast.makeText(view.getContext(), "Database Error!", Toast.LENGTH_SHORT);
-                    myToast.show();
-                } else {
-                    for (DataSnapshot ds : task.getResult().getChildren()) {
-                        String value = String.valueOf(ds.getValue());
-                        if (value.equals(id)) {
-                            isFound = true;
-                            dbpassword[0] = ds.child(value).child("password").getValue().toString();
-                            dbstorename[0] = ds.child(value).child("Store Name").getValue().toString();
-                        }
-                    }
-                }
-            }
-        });
-
-        if(!isFound){
-            Toast myToast = Toast.makeText(view.getContext(),"No such user exists!", Toast.LENGTH_SHORT);
-            myToast.show();
-            return;
-        }
-
         EditText userPassText = (EditText) findViewById(R.id.storeOwnerPasswordLogin);
         String password = userPassText.getText().toString();
         userPassText.setText("");
+        userEmailText.setText("");
+        DatabaseReference query = db.child("Owners").child(id);
 
-        if(!password.equals(dbpassword[0])){
-            isFound = false;
-            Toast myToast = Toast.makeText(view.getContext(),"Incorrect password!", Toast.LENGTH_SHORT);
-            myToast.show();
-            return;
-        }else{
-            Toast myToast = Toast.makeText(view.getContext(),"Logged in as Store Owner!", Toast.LENGTH_SHORT);
-            myToast.show();
-            StoreOwner owner = new StoreOwner(id, dbstorename[0], email, password);
-            new StoreOwnerMain(owner);
-            Intent intent = new Intent(getApplicationContext(), StoreOwnerHomepage.class);
-            startActivity(intent);
-            finish();
-        }
+        query.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                String dbpassword = null;
+                String dbstorename = null;
+                boolean switchactivity = false;
+                isFound = snapshot.exists();
+                if(isFound){
+                    for(DataSnapshot child: snapshot.getChildren()){
+                        if(String.valueOf(child.getKey()).equals("password")){
+                            dbpassword = String.valueOf(child.getValue());
+                        }
+                        if(String.valueOf(child.getKey()).equals("Store Name")){
+                            dbstorename = String.valueOf(child.getValue());
+                        }
+                    }
+                }
+
+                if(!isFound){
+                    Toast myToast = Toast.makeText(view.getContext(),"No such user exists!", Toast.LENGTH_SHORT);
+                    myToast.show();
+                    return;
+                }
+
+                if(!(password.equals(dbpassword))){
+                    isFound = false;
+                    Toast myToast = Toast.makeText(view.getContext(),"Incorrect password!", Toast.LENGTH_SHORT);
+                    myToast.show();
+                    return;
+                }else{
+                    StoreOwner owner = new StoreOwner(id, dbstorename, email, password);
+                    new StoreOwnerMain(owner);
+                    Intent intent = new Intent(StoreOwnerLogin.this, StoreOwnerHomepage.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+
     }
 }
