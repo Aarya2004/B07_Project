@@ -7,7 +7,7 @@
     android:background="#FFEDDB"
     android:orientation="vertical"
     android:padding="40dp"
-    tools:context=".StoreOwnerLogin">
+    tools:context=".StoreOwnerRegister">
 
     <TextView
         android:id="@+id/textView2"
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         android:gravity="center"
-        android:text="@string/store_owner_login"
+        android:text="@string/store_owner_register"
         android:textColor="#393E46"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -25,70 +25,77 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/submitLogin"
+        android:id="@+id/submitStoreOwnerRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/store_owner_submit_login_button"
+        android:layout_marginTop="16dp"
+        android:text="@string/store_owner_submit_register_button"
         android:backgroundTint="#00ADB5"
         android:textColor="#393E46"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/storeOwnerPasswordLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/storeOwnerStoreNameRegister" />
 
     <Button
-        android:id="@+id/storeOwnerRegisterRedirect"
+        android:id="@+id/storeOwnerLoginRedirect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:backgroundTint="#00ADB5"
         android:gravity="center"
-        android:text="@string/store_owner_register"
+        android:text="@string/store_owner_login"
+        android:backgroundTint="#00ADB5"
         android:textColor="#393E46"
-        android:textColorHighlight="#00ADB5"
-        android:textColorLink="#00ADB5"
         android:textSize="20dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/switchToShopperLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/submitLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/submitStoreOwnerRegister"
+        app:layout_constraintVertical_bias="0.684" />
 
     <Button
-        android:id="@+id/storeOwnerShopperRedirect"
+        android:id="@+id/switchToShopperLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
-        android:text="@string/store_owner_shopper_redirect_button"
-        android:backgroundTint ="#00ADB5"
+        android:backgroundTint="#00ADB5"
         android:textColor="#393E46"
+        android:text="@string/store_owner_shopper_redirect_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/storeOwnerRegisterRedirect" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/storeOwnerPasswordLogin"
+        android:id="@+id/storeOwnerPasswordRegister"
         android:layout_width="match_parent"
         android:layout_height="48sp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:background="#B1A599"
         android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/storeOwnerEmailLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/storeOwnerEmailRegister" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/storeOwnerEmailLogin"
+        android:id="@+id/storeOwnerEmailRegister"
         android:layout_width="match_parent"
         android:layout_height="48sp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="44dp"
         android:background="#B1A599"
         android:hint="@string/emailShopper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/storeOwnerStoreNameRegister"
+        android:layout_width="match_parent"
+        android:layout_height="48sp"
+        android:layout_marginTop="8dp"
+        android:background="#B1A599"
+        android:hint="@string/store_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeOwnerPasswordRegister" />
 </androidx.constraintlayout.widget.ConstraintLayout>

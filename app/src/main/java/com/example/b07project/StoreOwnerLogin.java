@@ -1,9 +1,12 @@
 package com.example.b07project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,43 +24,91 @@ public class StoreOwnerLogin extends AppCompatActivity {
     FirebaseDatabase firedb;
     boolean isFound = false;
 
-//    public void onClickAdd(View view) {
-//        DatabaseReference ref = db.getReference();
-//    }
-
-
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.store_owner_login);
         firedb = FirebaseDatabase.getInstance("https://b07-project-45a16-default-rtdb.firebaseio.com/");
-    }
-
-    public void check_user_exists(){
-        DatabaseReference db = this.firedb.getReference();
-
-        db.child("Owners").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        Button submitButton = findViewById(R.id.submitLogin);
+        Button registerRedirect = findViewById(R.id.storeOwnerRegisterRedirect);
+        Button shopperRedirect = findViewById(R.id.storeOwnerShopperRedirect);
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("demo", "Error getting data", task.getException());
-                }
-                else {
-                    Log.i("demo", task.getResult().getValue().toString());
-                }
+            public void onClick(View view) {
+                check_user_exists(view);
             }
         });
 
+        registerRedirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), StoreOwnerRegister.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        shopperRedirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ShopperLogin.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
+
+
+    public void check_user_exists(View view){
+        DatabaseReference db = this.firedb.getReference();
+
         EditText userEmailText = (EditText) findViewById(R.id.storeOwnerEmailLogin);
         String email = userEmailText.getText().toString();
+        String id = String.valueOf(email.hashCode());
+        EditText userPassText = (EditText) findViewById(R.id.storeOwnerPasswordLogin);
+        String password = userPassText.getText().toString();
+        userPassText.setText("");
         userEmailText.setText("");
-        DatabaseReference query = db.child("Owners").child(email);
-        final String[] dbpassword = new String[1];
+        DatabaseReference query = db.child("Owners").child(id);
+
         query.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                String dbpassword = null;
+                String dbstorename = null;
+                boolean switchactivity = false;
                 isFound = snapshot.exists();
-                dbpassword[0] = snapshot.getValue(String.class);
+                if(isFound){
+                    for(DataSnapshot child: snapshot.getChildren()){
+                        if(String.valueOf(child.getKey()).equals("password")){
+                            dbpassword = String.valueOf(child.getValue());
+                        }
+                        if(String.valueOf(child.getKey()).equals("Store Name")){
+                            dbstorename = String.valueOf(child.getValue());
+                        }
+                    }
+                }
+
+                if(!isFound){
+                    Toast myToast = Toast.makeText(view.getContext(),"No such user exists!", Toast.LENGTH_SHORT);
+                    myToast.show();
+                    return;
+                }
+
+                if(!(password.equals(dbpassword))){
+                    isFound = false;
+                    Toast myToast = Toast.makeText(view.getContext(),"Incorrect password!", Toast.LENGTH_SHORT);
+                    myToast.show();
+                    return;
+                }else{
+                    StoreOwner owner = new StoreOwner(id, dbstorename, email, password);
+                    new StoreOwnerMain(owner);
+                    Intent intent = new Intent(StoreOwnerLogin.this, StoreOwnerHomepage.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
 
             @Override
@@ -65,21 +116,5 @@ public class StoreOwnerLogin extends AppCompatActivity {
             }
         });
 
-        if(isFound == false){
-            Toast myToast = Toast.makeText(getApplicationContext(),"No such user exists!", Toast.LENGTH_SHORT);
-            myToast.show();
-            return;
-        }
-
-        EditText userPassText = (EditText) findViewById(R.id.storeOwnerPasswordLogin);
-        String password = userPassText.getText().toString();
-        userPassText.setText("");
-
-        if(password != dbpassword[0]){
-            Toast myToast = Toast.makeText(getApplicationContext(),"Incorrect password!", Toast.LENGTH_SHORT);
-            myToast.show();
-            return;
-        }
     }
-
 }
