@@ -13,6 +13,10 @@
     <string name="store_owner_submit_login_button">Login!</string>
     <string name="store_owner_register_redirect_button">Register!</string>
     <string name="store_owner_shopper_redirect_button">Not a Store Owner? Enter as a shopper</string>
+    <string name="store_owner_register">Register as a Store Owner</string>
+    <string name="store_owner_login">Login as a Store Owner</string>
+    <string name="store_owner_submit_register_button">Register!</string>
+    <string name="store_name">Store Name</string>
 
 
     <string name="login_as_a_shopper">Login as a Shopper</string>
@@ -25,6 +29,10 @@
 
 
     <string name="switchOwner">Switch to Owner</string>
+    <string name="store_owner_menu_products">Products</string>
+    <string name="store_owner_menu_orders">Orders</string>
+    <string name="store_owner_menu_logout">Logout</string>
+    <string name="logged_in_as_store_owner">Logged in as Store Owner!</string>
     <string name="fulfilledText">"Fulfilled "</string>
 
 
