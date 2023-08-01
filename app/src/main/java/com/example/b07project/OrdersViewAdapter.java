@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Locale;
+
 public class OrdersViewAdapter extends RecyclerView.Adapter<OrdersViewHolder> {
 
     Context context;
@@ -28,11 +30,13 @@ public class OrdersViewAdapter extends RecyclerView.Adapter<OrdersViewHolder> {
     public void onBindViewHolder(@NonNull OrdersViewHolder holder, int position) {
         holder.shopperName.setText(ordersList.get(position).getShopperName());
         holder.productName.setText(ordersList.get(position).getProductName());
+        holder.quantity.setText(String.format(Locale.getDefault(), "%d", ordersList.get(position).getQuantity()));
+        holder.fulfilled.setText(R.string.fulfilledText);
+        holder.fulfilled.setChecked(ordersList.get(position).isFulfilled());
     }
 
     @Override
     public int getItemCount() {
-        System.out.println("HERE");
         return ordersList.size();
     }
 }

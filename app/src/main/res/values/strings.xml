@@ -25,6 +25,7 @@
 
 
     <string name="switchOwner">Switch to Owner</string>
+    <string name="fulfilledText">"Fulfilled "</string>
 
 
 </resources>
