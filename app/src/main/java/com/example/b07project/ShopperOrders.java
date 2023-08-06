@@ -21,6 +21,7 @@ public class ShopperOrders extends AppCompatActivity {
 
         List<Order> shopperOrders = new ArrayList<Order>();
 
+
         RecyclerView ordersView = findViewById(R.id.shopperOrdersList);
         ordersView.setLayoutManager(new LinearLayoutManager(this));
         ordersView.setAdapter(new ShopperOrdersViewAdapter(getApplicationContext(), shopperOrders));
