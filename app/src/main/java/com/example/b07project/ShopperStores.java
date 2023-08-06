@@ -33,13 +33,14 @@ public class ShopperStores extends AppCompatActivity {
         setContentView(R.layout.shopper_stores);
         firedb = FirebaseDatabase.getInstance("https://b07-project-45a16-default-rtdb.firebaseio.com/");
         ArrayList<Store> stores = new ArrayList<Store>();
-        get_stores(stores);
         RecyclerView storeRecyclerView = findViewById(R.id.storeRecyclerView);
         storeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        storeRecyclerView.setAdapter(new ShopperStoreViewAdapter(getApplicationContext(), stores));
+        ShopperStoreViewAdapter storeAdapter = new ShopperStoreViewAdapter(getApplicationContext(), stores);
+        storeRecyclerView.setAdapter(storeAdapter);
+        get_stores(stores, storeAdapter);
     }
 
-    public void get_stores(ArrayList<Store> stores){
+    public void get_stores(ArrayList<Store> stores, ShopperStoreViewAdapter storeAdapter){
         DatabaseReference db = this.firedb.getReference();
         DatabaseReference query = db.child("Owners");
         query.addValueEventListener(new ValueEventListener() {
@@ -65,6 +66,7 @@ public class ShopperStores extends AppCompatActivity {
                     }
                     stores.add(store);
                 }
+                storeAdapter.notifyDataSetChanged();
             }
 
             @Override
