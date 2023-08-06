@@ -3,7 +3,6 @@ package com.example.b07project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,11 +36,6 @@ public class StoreOwnerRegister extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 enter_into_db();
-                Toast myToast = Toast.makeText(StoreOwnerRegister.this,"Successfully Registered!", Toast.LENGTH_SHORT);
-                myToast.show();
-                Intent intent = new Intent(StoreOwnerRegister.this, StoreOwnerLogin.class);
-                startActivity(intent);
-                finish();
             }
         });
 
@@ -62,10 +56,9 @@ public class StoreOwnerRegister extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
-    public void enter_into_db(){
+    public void enter_into_db() {
         DatabaseReference db = firedb.getReference();
         String storeOwnerEmail;
         String storeOwnerPassword;
@@ -80,61 +73,62 @@ public class StoreOwnerRegister extends AppCompatActivity {
         storeOwnerStoreName = String.valueOf(storeOwnerRegisterStoreNameInput.getText());
         storeOwnerId = String.valueOf(storeOwnerEmail.hashCode());
 
-        if (TextUtils.isEmpty(storeOwnerEmail)){
+        if (TextUtils.isEmpty(storeOwnerEmail)) {
             Toast.makeText(StoreOwnerRegister.this, "Empty Email", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(storeOwnerPassword)){
+        if (TextUtils.isEmpty(storeOwnerPassword)) {
             Toast.makeText(StoreOwnerRegister.this, "Empty Password", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(storeOwnerStoreName)){
+        if (TextUtils.isEmpty(storeOwnerStoreName)) {
             Toast.makeText(StoreOwnerRegister.this, "Empty Store Name", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        boolean userExists = user_exists(db, storeOwnerId, storeOwnerStoreName);
-        if(userExists == true){
-            Toast myToast = Toast.makeText(getApplicationContext(), "User Already Exists!", Toast.LENGTH_SHORT);
-            myToast.show();
-            return;
-        }else{
-            db.child("Owners").child(storeOwnerId).child("email").setValue(storeOwnerEmail);
-            db.child("Owners").child(storeOwnerId).child("password").setValue(storeOwnerPassword);
-            db.child("Owners").child(storeOwnerId).child("Store Name").setValue(storeOwnerStoreName);
-            db.child("Owners").child(storeOwnerId).child("Products");
-            db.child("Owners").child(storeOwnerId).child("Orders");
-        }
-    }
-
-    public boolean user_exists(DatabaseReference db, String id, String storeName){
-        final boolean[] isFound = {false};
-
         db.child("Owners").addListenerForSingleValueEvent(new ValueEventListener() {
-
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot child: snapshot.getChildren()) {
-                    String currId = String.valueOf(child.getKey());
-                    if(currId.equals(id)) {
-                        isFound[0] = true;
-                        return;
-                    }
-                    String currStoreName = String.valueOf(child.child(currId).child("Store Name").getValue());
-                    if(currStoreName.equals(storeName)) {
-                        isFound[0] = true;
-                        return;
-                    }
+                if (emailExists(snapshot, storeOwnerEmail) || storeNameExists(snapshot, storeOwnerStoreName)) {
+                    Toast myToast = Toast.makeText(getApplicationContext(), "Email or Store Name Already Exists!", Toast.LENGTH_SHORT);
+                    myToast.show();
+                } else {
+                    db.child("Owners").child(storeOwnerId).child("email").setValue(storeOwnerEmail);
+                    db.child("Owners").child(storeOwnerId).child("password").setValue(storeOwnerPassword);
+                    db.child("Owners").child(storeOwnerId).child("Store Name").setValue(storeOwnerStoreName);
+                    db.child("Owners").child(storeOwnerId).child("Products");
+                    db.child("Owners").child(storeOwnerId).child("Orders");
+                    Toast myToast = Toast.makeText(StoreOwnerRegister.this, "Successfully Registered!", Toast.LENGTH_SHORT);
+                    myToast.show();
+                    Intent intent = new Intent(StoreOwnerRegister.this, StoreOwnerLogin.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
 
-
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        return isFound[0];
-
-        }
     }
+
+    public boolean emailExists(DataSnapshot snapshot, String email) {
+        for (DataSnapshot child : snapshot.getChildren()) {
+            String currEmail = String.valueOf(child.child("email").getValue());
+            if (currEmail.equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean storeNameExists(DataSnapshot snapshot, String storeName) {
+        for (DataSnapshot child : snapshot.getChildren()) {
+            String currStoreName = String.valueOf(child.child("Store Name").getValue());
+            if (currStoreName.equals(storeName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}

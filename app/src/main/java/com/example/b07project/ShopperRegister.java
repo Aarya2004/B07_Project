@@ -35,22 +35,6 @@ public class ShopperRegister extends AppCompatActivity {
     Button ownerRegisterSwitch;
 
 
-//
-//    @Override
-//    public void onStart() {
-//        //check if user is already logged in. If yes open main activity
-//        super.onStart();
-//
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

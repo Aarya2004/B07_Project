@@ -40,19 +40,6 @@ public class ShopperLogin extends AppCompatActivity{
     Button switchToOwner;
 
     boolean isFound;
-//
-//    @Override
-//    public void onStart() {
-//        //check if user is already logged in. If yes open main activity
-//        super.onStart();
-//
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
 
 
     @Override
