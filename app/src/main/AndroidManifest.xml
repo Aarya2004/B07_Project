@@ -25,7 +25,7 @@
         <activity android:name=".ShopperLogin"></activity>
         <activity android:name=".ShopperRegister"></activity>
         <activity android:name=".ShopperHomepage"></activity>
-
+        <activiity android:name=".ShopperStores"></activiity>
 
         <activity android:name=".ShopperOrders"></activity>
 

@@ -17,8 +17,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class StoreOwnerRegister extends AppCompatActivity {
     FirebaseDatabase firedb;
@@ -110,49 +112,32 @@ public class StoreOwnerRegister extends AppCompatActivity {
 
     public boolean user_exists(DatabaseReference db, String id, String storeName){
         final boolean[] isFound = {false};
-        db.child("Owners").orderByKey().get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+
+        db.child("Owners").addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                    Toast myToast = Toast.makeText(StoreOwnerRegister.this, "Database Error!", Toast.LENGTH_SHORT);
-                    myToast.show();
-                } else {
-                    for (DataSnapshot ds : task.getResult().getChildren()) {
-                        String value = String.valueOf(ds.getValue());
-                        if (value.equals(id)) {
-                            isFound[0] = true;
-                            break;
-                        }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot child: snapshot.getChildren()) {
+                    String currId = String.valueOf(child.getKey());
+                    if(currId.equals(id)) {
+                        isFound[0] = true;
+                        return;
+                    }
+                    String currStoreName = String.valueOf(child.child(currId).child("Store Name").getValue());
+                    if(currStoreName.equals(storeName)) {
+                        isFound[0] = true;
+                        return;
                     }
                 }
             }
-        });
 
-        if(isFound[0]) {
-            return isFound[0];
-        }
 
-        db.child("Owners").orderByKey().get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                    Toast myToast = Toast.makeText(StoreOwnerRegister.this, "Database Error!", Toast.LENGTH_SHORT);
-                    myToast.show();
-                } else {
-                    for (DataSnapshot ds : task.getResult().getChildren()) {
-                        String ownerId = String.valueOf(ds.getValue());
-                        String dbStoreName = String.valueOf(ds.child(ownerId).child("Store Name").getValue());
-                        if (dbStoreName.equals(storeName)) {
-                            isFound[0] = true;
-                            break;
-                        }
-                    }
-                }
+            public void onCancelled(DatabaseError error) {
             }
         });
 
         return isFound[0];
+
+        }
     }
-}
