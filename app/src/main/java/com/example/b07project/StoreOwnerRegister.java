@@ -98,16 +98,13 @@ public class StoreOwnerRegister extends AppCompatActivity {
             Toast myToast = Toast.makeText(getApplicationContext(), "User Already Exists!", Toast.LENGTH_SHORT);
             myToast.show();
             return;
+        }else{
+            db.child("Owners").child(storeOwnerId).child("email").setValue(storeOwnerEmail);
+            db.child("Owners").child(storeOwnerId).child("password").setValue(storeOwnerPassword);
+            db.child("Owners").child(storeOwnerId).child("Store Name").setValue(storeOwnerStoreName);
+            db.child("Owners").child(storeOwnerId).child("Products");
+            db.child("Owners").child(storeOwnerId).child("Orders");
         }
-
-        String storeId;
-        storeId = String.valueOf(storeOwnerStoreName.hashCode());
-
-        db.child("Owners").child(storeOwnerId).child("email").setValue(storeOwnerEmail);
-        db.child("Owners").child(storeOwnerId).child("password").setValue(storeOwnerPassword);
-        db.child("Owners").child(storeOwnerId).child("Store Name").setValue(storeOwnerStoreName);
-        db.child("Owners").child(storeOwnerId).child("Products");
-        db.child("Owners").child(storeOwnerId).child("Orders");
     }
 
     public boolean user_exists(DatabaseReference db, String id, String storeName){
