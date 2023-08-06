@@ -125,7 +125,6 @@ public class ShopperLogin extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 String dbpassword = null;
-                String dbstorename = null;
                 isFound = snapshot.exists();
                 if(isFound){
                     for(DataSnapshot child: snapshot.getChildren()){
@@ -163,6 +162,8 @@ public class ShopperLogin extends AppCompatActivity{
     }
 
 }
+
+
 
 
 

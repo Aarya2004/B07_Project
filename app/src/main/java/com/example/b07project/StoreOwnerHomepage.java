@@ -23,7 +23,7 @@ public class StoreOwnerHomepage extends AppCompatActivity {
 
 
     public void orderRedirect(View view) {
-        Intent intent = new Intent(this, StoreOwnerLogin.class);
+        Intent intent = new Intent(this, StoreOwnerOrders.class);
         startActivity(intent);
     }
 

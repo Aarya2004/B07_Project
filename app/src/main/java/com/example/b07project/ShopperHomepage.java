@@ -14,6 +14,18 @@ public class ShopperHomepage extends AppCompatActivity {
         setContentView(R.layout.shopper_home);
     }
 
+    public void storeRedirect(View view) {
+        Intent intent = new Intent(this, ShopperStores.class);
+        startActivity(intent);
+    }
+
+    public void shopperOrderRedirect(View view) {
+        Intent intent = new Intent(this, ShopperOrders.class);
+        startActivity(intent);
+    }
+
+
+
     public void logout(View view){
         Intent intent = new Intent(this, MainActivity.class);
         ShopperMain.shopperLoggedout();
