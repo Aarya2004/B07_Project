@@ -48,8 +48,8 @@ public class ShopperStores extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 for(DataSnapshot id: snapshot.getChildren()){
                     String ownerId = String.valueOf(id.getKey());
-                    String ownerEmail = String.valueOf(id.child("email"));
-                    String ownerPass = String.valueOf(id.child("password"));
+                    String ownerEmail = String.valueOf(id.child("email").getValue());
+                    String ownerPass = String.valueOf(id.child("password").getValue());
                     String storeName = String.valueOf(id.child("Store Name").getValue());
                     StoreOwner owner = new StoreOwner(ownerId, storeName, ownerEmail, ownerPass);
                     Store store = new Store(owner);
