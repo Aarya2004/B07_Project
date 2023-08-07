@@ -29,7 +29,6 @@ public class StoreOwnerOrders extends AppCompatActivity {
     static String OwnerID;
     static ArrayList<Order> items = new ArrayList<Order>();
     static DatabaseReference ownersRef = FirebaseDatabase.getInstance("https://b07-project-45a16-default-rtdb.firebaseio.com").getReference("Owners");
-    //for testing
 
     public static void updateDatabase(int position, boolean isChecked) {
         ownersRef.child(OwnerID).child("orders").child(Integer.toString(position)).child("fulfilled").setValue(isChecked);
@@ -40,9 +39,20 @@ public class StoreOwnerOrders extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_orders);
         OwnerID = StoreOwnerMain.ownerLoggedIn().getId();
+//        OwnerID = "-619562573"; //testing
         OrdersViewAdapter adapter = new OrdersViewAdapter(getApplicationContext(), items);
-
-        //testing
+//        ArrayList<Product> testProducts = new ArrayList<Product>();
+//        ArrayList<Integer> testQuantities = new ArrayList<Integer>();
+//        testProducts.add(new Product("id1", "Television", 0));
+//        testProducts.add(new Product("id2", "Banana", 0));
+//        testProducts.add(new Product("id3", "Cheese", 2));
+//        for (Product product: testProducts) {
+//            Log.e("demo", product.productName);
+//        }
+//        testQuantities.add(1);
+//        testQuantities.add(15);
+//        testQuantities.add(12);
+//        items.add(new Order(null, "Joshua", testProducts, testQuantities, false));
         ownersRef.child(OwnerID).child("orders").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

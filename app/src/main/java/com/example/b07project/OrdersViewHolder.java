@@ -19,11 +19,11 @@ public class OrdersViewHolder extends RecyclerView.ViewHolder {
     SwitchCompat fulfilled;
     static Boolean isTouched = false;
 
+    @SuppressLint("ClickableViewAccessibility")
     public OrdersViewHolder(@NonNull View itemView) {
         super(itemView);
         shopperName = itemView.findViewById(R.id.shopperName);
         productName = itemView.findViewById(R.id.productName);
-        quantity = itemView.findViewById(R.id.quantity);
         fulfilled = itemView.findViewById(R.id.fulfilledSwitch);
         fulfilled.setOnTouchListener(new View.OnTouchListener() {
             @Override

@@ -1,17 +1,30 @@
 package com.example.b07project;
 
+import java.util.ArrayList;
+
 class Order {
+    String shopperID;
     String shopperName;
-    String productName;
-    int quantity;
+    ArrayList<Product> products;
+    ArrayList<Integer> productQuantities;
     boolean fulfilled;
 
     public Order() {}
-    public Order(String shopperName, String productName, int quantity, boolean fulfilled) {
+
+    public Order(String shopperID, String shopperName, ArrayList<Product> products, ArrayList<Integer> productQuantities, boolean fulfilled) {
+        this.shopperID = shopperID;
         this.shopperName = shopperName;
-        this.productName = productName;
-        this.quantity = quantity;
+        this.products = products;
+        this.productQuantities = productQuantities;
         this.fulfilled = fulfilled;
+    }
+
+    public String getShopperID() {
+        return shopperID;
+    }
+
+    public void setShopperID(String shopperID) {
+        this.shopperID = shopperID;
     }
 
     public String getShopperName() {
@@ -22,20 +35,20 @@ class Order {
         this.shopperName = shopperName;
     }
 
-    public String getProductName() {
-        return productName;
+    public ArrayList<Product> getProducts() {
+        return products;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public ArrayList<Integer> getProductQuantities() {
+        return productQuantities;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setProductQuantities(ArrayList<Integer> productQuantities) {
+        this.productQuantities = productQuantities;
     }
 
     public boolean isFulfilled() {
@@ -44,5 +57,10 @@ class Order {
 
     public void setFulfilled(boolean fulfilled) {
         this.fulfilled = fulfilled;
+    }
+
+    public void addOrder(Product product, int quantity) {
+        products.add(product);
+        productQuantities.add(quantity);
     }
 }
