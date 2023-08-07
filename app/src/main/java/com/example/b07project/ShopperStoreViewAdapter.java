@@ -28,7 +28,12 @@ public class ShopperStoreViewAdapter extends RecyclerView.Adapter<ShopperStoreVi
 
     @Override
     public void onBindViewHolder(@NonNull ShopperStoreViewHolder holder, int position) {
-        holder.storeName.setText(storesList.get(position).getStoreName());
+        Store store = storesList.get(position);
+        holder.storeName.setText(store.getStoreName());
+
+//        holder.itemView.setOnClickListener(v -> {
+//            ((ShopperStores) context).createStoreLayout(store);
+//        });
     }
 
     @Override

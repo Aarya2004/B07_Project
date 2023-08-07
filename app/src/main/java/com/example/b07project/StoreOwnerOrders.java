@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StoreOwnerOrders extends AppCompatActivity {
-    static String OwnerID = "-619562573";
+    static String OwnerID;
     static ArrayList<Order> items = new ArrayList<Order>();
     static DatabaseReference ownersRef = FirebaseDatabase.getInstance("https://b07-project-45a16-default-rtdb.firebaseio.com").getReference("Owners");
     //for testing
@@ -39,7 +39,7 @@ public class StoreOwnerOrders extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_owner_orders);
-
+        OwnerID = StoreOwnerMain.ownerLoggedIn().getId();
         OrdersViewAdapter adapter = new OrdersViewAdapter(getApplicationContext(), items);
 
         //testing

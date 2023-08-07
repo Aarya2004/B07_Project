@@ -3,6 +3,8 @@ package com.example.b07project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,4 +76,26 @@ public class ShopperStores extends AppCompatActivity {
             }
         });
     }
+
+//    public void createStoreLayout(Store store) {
+//        // Create a new layout for the store
+//        LinearLayout storeLayout = new LinearLayout(this);
+//        storeLayout.setOrientation(LinearLayout.VERTICAL);
+//
+//        // Create and add a TextView for store name
+//        TextView storeNameTextView = new TextView(this);
+//        storeNameTextView.setText(store.getOwner().getStoreName());
+//        storeLayout.addView(storeNameTextView);
+//
+//        // Loop through products and add TextViews for each product
+//        for (Product product : store.getProducts()) {
+//            TextView productTextView = new TextView(this);
+//            productTextView.setText(product.getName() + " - $" + product.getPrice());
+//            storeLayout.addView(productTextView);
+//        }
+//
+//        // Add the store layout to the main layout
+//        LinearLayout mainLayout = findViewById(R.id.mainLayout);
+//        mainLayout.addView(storeLayout);
+//    }
 }

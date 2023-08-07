@@ -13,7 +13,7 @@ public class StoreOwnerMain {
         }
     }
 
-    public StoreOwner ownerLoggedIn(){
+    public static StoreOwner ownerLoggedIn(){
         return owner;
     }
 
