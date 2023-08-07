@@ -6,6 +6,7 @@ class Order {
     int quantity;
     boolean fulfilled;
 
+    public Order() {}
     public Order(String shopperName, String productName, int quantity, boolean fulfilled) {
         this.shopperName = shopperName;
         this.productName = productName;
