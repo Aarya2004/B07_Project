@@ -18,9 +18,9 @@ public class StoreOwnerOrders extends AppCompatActivity {
 
         List<Order> items = new ArrayList<Order>();
         //testing
-        items.add(new Order("Joshua", "Banana", 25, false));
-        items.add(new Order("Joshua1", "Banana3", 21, true));
-        items.add(new Order("Joshua2", "Banana4", 0, false));
+        items.add(new Order("Name1", "Banana2", 25, false));
+        items.add(new Order("Name2", "Banana3", 21, true));
+        items.add(new Order("Name3", "Banana4", 1, false));
 
         RecyclerView orders = findViewById(R.id.ordersList);
         orders.setLayoutManager(new LinearLayoutManager(this));

@@ -28,9 +28,9 @@ public class OrdersViewAdapter extends RecyclerView.Adapter<OrdersViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull OrdersViewHolder holder, int position) {
-        holder.shopperName.setText(ordersList.get(position).getShopperName());
-        holder.productName.setText(ordersList.get(position).getProductName());
-        holder.quantity.setText(String.format(Locale.getDefault(), "%d", ordersList.get(position).getQuantity()));
+        holder.shopperName.setText("Shopper: " + ordersList.get(position).getShopperName());
+        holder.productName.setText("Product: " + ordersList.get(position).getProductName());
+        holder.quantity.setText("Quantity: " + String.format(Locale.getDefault(), "%d", ordersList.get(position).getQuantity()));
         holder.fulfilled.setText(R.string.fulfilledText);
         holder.fulfilled.setChecked(ordersList.get(position).isFulfilled());
     }
