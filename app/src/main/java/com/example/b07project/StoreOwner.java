@@ -5,12 +5,10 @@ import java.util.List;
 
 public class StoreOwner extends Account{
     private String storeName;
-    public ArrayList<Order> orders;
 
     public StoreOwner(String id, String storeName, String email, String password){
         super(id, "StoreOwner", email, password);
         setStoreName(storeName);
-        orders = new ArrayList<Order>();
 
     }
 
