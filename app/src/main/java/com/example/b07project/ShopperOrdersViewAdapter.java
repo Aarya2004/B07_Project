@@ -27,10 +27,16 @@ public class ShopperOrdersViewAdapter extends RecyclerView.Adapter<ShopperOrders
 
     @Override
     public void onBindViewHolder(@NonNull ShopperOrdersViewHolder holder, int position) {
-        holder.shopperName.setText(ordersList.get(position).getShopperName()+"'s Order");
+        holder.shopperName.setText(ordersList.get(position).getShopperName() + "'s Order");
         holder.productName.setText(generateProductString(ordersList, position));
-        holder.fulfilled.setText(ordersList.get(position).isFulfilled() ? "Order Fulfilled" : "Order In Progress");
+
+        if (ordersList.get(position).isFulfilled()) {
+            holder.fulfilled.setText("Order Fulfilled");
+        } else {
+            holder.fulfilled.setText("Order In Progress");
+        }
     }
+
 
     private String generateProductString(List<Order> orders, int position) {
         StringBuilder return_string = new StringBuilder();
