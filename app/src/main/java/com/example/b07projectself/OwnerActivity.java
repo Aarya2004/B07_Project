@@ -58,7 +58,7 @@ public class OwnerActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.myproducts) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.ownerContainer, products).commit();
+                    updateProducts();
                     return true;
                 }
                 else if (item.getItemId() == R.id.ownerorders) {
@@ -67,6 +67,7 @@ public class OwnerActivity extends AppCompatActivity {
                 }
                 else if (item.getItemId() == R.id.createproduct) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.ownerContainer, create).commit();
+                    return true;
                 }
                 return false;
             }

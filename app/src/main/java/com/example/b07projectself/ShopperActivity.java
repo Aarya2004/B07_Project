@@ -31,6 +31,7 @@ public class ShopperActivity extends AppCompatActivity {
     BottomNavigationView nav;
     Stack<Fragment> shopStack;
     List<Order> cartList;
+    List<Pair<String, Order>> sentOrders;
 
     User user;
     List<Pair<String, Store>> stores;
@@ -45,6 +46,7 @@ public class ShopperActivity extends AppCompatActivity {
 
         shopStack = new Stack<>();
         cartList=new ArrayList<>();
+        updateOrders(false);
         updateStores();
         cart = new Cart(cartList);
         nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -111,13 +113,29 @@ public class ShopperActivity extends AppCompatActivity {
                 int quantity = result.getInt("quantity");
                 Order o = new Order(pid, p.getName(), quantity, p.getPrice(), p.getStoreName(), FirebaseAuth.getInstance().getCurrentUser().getUid(), false);
                 cartList.add(o);
-                updateCart();
+                updateCart(true);
             }
         });
         getSupportFragmentManager().setFragmentResultListener("updateCart", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                updateCart();
+                updateCart(false);
+            }
+        });
+
+        getSupportFragmentManager().setFragmentResultListener("order", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                cartList = new ArrayList<>();
+                updateCart(false);
+                updateOrders(true);
+            }
+        });
+
+        getSupportFragmentManager().setFragmentResultListener("delOrder", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                updateOrders(true);
             }
         });
     }
@@ -135,8 +153,23 @@ public class ShopperActivity extends AppCompatActivity {
             }
         });
     }
-    public void updateCart() {
+    public void updateCart(boolean replace) {
         cart = new Cart(cartList);
-        nav.setSelectedItemId(R.id.cart);
+        if(replace) nav.setSelectedItemId(R.id.cart);
+    }
+
+    public void updateOrders(boolean replace) {
+        Query q = FirebaseDatabase.getInstance().getReference("orders").orderByChild("shopper").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        q.get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                sentOrders = new ArrayList<>();
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    sentOrders.add(new Pair<>(d.getKey(), d.getValue(Order.class)));
+                }
+                orders = new ShopperOrders(sentOrders);
+                if(replace) nav.setSelectedItemId(R.id.orders);
+            }
+        });
     }
 }
