@@ -49,9 +49,9 @@ public class LoginActivityView extends AppCompatActivity {
 
     public void toApp(User user) {
         Intent intent = new Intent(LoginActivityView.this, user.isStoreOwner() ? OwnerActivity.class : ShopperActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("user", user);
         startActivity(intent);
+        finish();
 
     }
 
