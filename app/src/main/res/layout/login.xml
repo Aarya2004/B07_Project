@@ -8,12 +8,14 @@
 
     <TextView
         android:id="@+id/textView"
+        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Email" />
 
     <EditText
         android:id="@+id/editEmailAddress"
+        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -21,12 +23,14 @@
 
     <TextView
         android:id="@+id/textView2"
+        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Password" />
 
     <EditText
         android:id="@+id/editPassword"
+        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -34,24 +38,28 @@
 
     <Button
         android:id="@+id/loginButton"
+        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LOGIN" />
 
     <TextView
         android:id="@+id/textView3"
+        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register as..." />
 
     <Button
         android:id="@+id/asShopper"
+        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Shopper" />
 
     <Button
         android:id="@+id/asOwner"
+        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Store Owner" />
