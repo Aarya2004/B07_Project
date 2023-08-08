@@ -42,7 +42,7 @@ public class StoreOwnerRegister extends AppCompatActivity {
         loginRedirect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StoreOwnerRegister.this, StoreOwnerLogin.class);
+                Intent intent = new Intent(StoreOwnerRegister.this, StoreOwnerLoginView.class);
                 startActivity(intent);
                 finish();
             }
@@ -100,7 +100,7 @@ public class StoreOwnerRegister extends AppCompatActivity {
                     db.child("Owners").child(storeOwnerId).child("Orders");
                     Toast myToast = Toast.makeText(StoreOwnerRegister.this, "Successfully Registered!", Toast.LENGTH_SHORT);
                     myToast.show();
-                    Intent intent = new Intent(StoreOwnerRegister.this, StoreOwnerLogin.class);
+                    Intent intent = new Intent(StoreOwnerRegister.this, StoreOwnerLoginView.class);
                     startActivity(intent);
                     finish();
                 }

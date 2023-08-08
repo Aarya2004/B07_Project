@@ -36,16 +36,16 @@ public class StoreOwnerLoginView extends AppCompatActivity {
         userEmailText = (EditText) findViewById(R.id.storeOwnerEmailLogin);
         userPassText = (EditText) findViewById(R.id.storeOwnerPasswordLogin);
 
-        email = userEmailText.getText().toString();
-        id = String.valueOf(email.hashCode());
-        password = userPassText.getText().toString();
-
-        userPassText.setText("");
-        userEmailText.setText("");
-
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                email = userEmailText.getText().toString();
+                id = String.valueOf(email.hashCode());
+                password = userPassText.getText().toString();
+
+                userPassText.setText("");
+                userEmailText.setText("");
+
                 presenter.check_user_exists(email, password, id);
             }
         });

@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void ownerLogin(View view) {
-        Intent intent = new Intent(this, StoreOwnerLogin.class);
+        Intent intent = new Intent(this, StoreOwnerLoginView.class);
         startActivity(intent);
     }
 
