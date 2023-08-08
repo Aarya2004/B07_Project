@@ -38,28 +38,28 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LOGIN" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register as..." />
 
     <Button
         android:id="@+id/asShopper"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Shopper" />
 
     <Button
         android:id="@+id/asOwner"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Store Owner" />
