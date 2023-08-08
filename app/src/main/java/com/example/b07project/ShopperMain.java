@@ -10,7 +10,7 @@ public class ShopperMain {
         }
     }
 
-    public Shopper shopperLoggedIn(){
+    public static Shopper shopperLoggedIn(){
         return shopper;
     }
 

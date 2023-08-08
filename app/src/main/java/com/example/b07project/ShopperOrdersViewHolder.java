@@ -4,23 +4,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ShopperOrdersViewHolder extends RecyclerView.ViewHolder{
-    TextView orderID;
+public class ShopperOrdersViewHolder extends RecyclerView.ViewHolder {
+
+    TextView shopperName;
     TextView productName;
-    TextView quantity;
-    SwitchCompat fulfilled;
+    TextView fulfilled;
 
     public ShopperOrdersViewHolder(@NonNull View itemView) {
         super(itemView);
-        orderID = itemView.findViewById(R.id.orderID);
-        productName = itemView.findViewById(R.id.shopperProductName);
-        quantity = itemView.findViewById(R.id.shopperQuantity);
-
+        shopperName = itemView.findViewById(R.id.shopperOrderName);
+        productName = itemView.findViewById(R.id.shopperOrderProductName);
+        fulfilled = itemView.findViewById(R.id.shopperOrderFulfilledStatus);
     }
-
 }
-
-

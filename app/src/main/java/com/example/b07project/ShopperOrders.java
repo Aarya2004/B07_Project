@@ -1,45 +1,50 @@
 package com.example.b07project;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class ShopperOrders extends AppCompatActivity {
+    static String ShopperID;
+    static List<Order> shopperOrders = new ArrayList<>();
+    static DatabaseReference shoppersRef = FirebaseDatabase.getInstance("https://b07-project-45a16-default-rtdb.firebaseio.com").getReference("Shoppers");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopper_orders);
+        ShopperID = ShopperMain.shopperLoggedIn().getId();
 
-        List<Order> shopperOrders = new ArrayList<Order>();
+        ShopperOrdersViewAdapter adapter = new ShopperOrdersViewAdapter(getApplicationContext(), shopperOrders);
 
+        shoppersRef.child(ShopperID).child("orders").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                shopperOrders.clear();
+                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                    shopperOrders.add(childSnapshot.getValue(Order.class));
+                }
+                adapter.notifyDataSetChanged();
+            }
 
-        RecyclerView ordersView = findViewById(R.id.shopperOrdersList);
-        ordersView.setLayoutManager(new LinearLayoutManager(this));
-        ordersView.setAdapter(new ShopperOrdersViewAdapter(getApplicationContext(), shopperOrders));
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
+        RecyclerView orders = findViewById(R.id.shopperOrdersList);
+        orders.setLayoutManager(new LinearLayoutManager(this));
+        orders.setAdapter(adapter);
     }
-
-
-    public void showOrderStatus(Order order) {
-        String status;
-
-        if (order.isFulfilled()) {
-            status = "Ready to pick up!";
-        } else {
-            status = "Order is still being processed.";
-        }
-
-        Toast.makeText(this, status, Toast.LENGTH_LONG).show();
-    }
-
-
-
 }
