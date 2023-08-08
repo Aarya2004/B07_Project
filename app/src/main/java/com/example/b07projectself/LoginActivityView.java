@@ -60,9 +60,7 @@ public class LoginActivityView extends AppCompatActivity {
     }
 
     public void registerOwner(){
-
-        // UI for login, then call presenter
-        if (emailAddress.length() == 0 || password.length() == 0) return;
+        if (presenter.checkInput(emailAddress) || presenter.checkInput(password)) return;
 
         View view = View.inflate(this, R.layout.get_store_name, null);
         Button close = view.findViewById(R.id.cancelPopup);

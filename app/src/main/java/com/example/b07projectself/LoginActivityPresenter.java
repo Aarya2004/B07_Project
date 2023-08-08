@@ -17,21 +17,25 @@ public class LoginActivityPresenter {
     }
 
     public void presenterLogin(Activity currActivity, EditText emailAddress, EditText password) {
-        if (emailAddress.length() == 0 || password.length() == 0) return;
+        if (checkInput(emailAddress) || checkInput(password)) return;
         model.modelLogin(currActivity, this, emailAddress, password);
     }
 
     public void presenterRegisterShopper(Activity currActivity, EditText emailAddress, EditText password){
-        if (emailAddress.length() == 0 || password.length() == 0) return;
+        if (checkInput(emailAddress) || checkInput(password)) return;
         model.modelRegisterShopper(currActivity, this, emailAddress, password);
     }
 
     public void presenterRegisterOwner(Activity currActivity, DatabaseReference db, EditText emailAddress, EditText password, EditText name, PopupWindow pop){
-        if (name.length() == 0) return;
+        if (checkInput(name)) return;
         model.modelRegisterOwner(currActivity,this, db, emailAddress, password, name, pop);
     }
 
     public void displayToast(String message) { view.displayToast(message); }
 
     public void toApp(User user) { view.toApp(user); }
+
+    public boolean checkInput(EditText input) {
+        return input.length() == 0;
+    }
 }
