@@ -35,7 +35,10 @@ public class StoreOwnerLoginModel {
                         storeName = String.valueOf(child.getValue());
                     }
                 }
-                presenter.confirm_user(password, storeName);
+                boolean user_confirmed = presenter.confirm_user(password, storeName);
+                if(user_confirmed){
+                    presenter.view.user_confirmed(storeName);
+                }
             }
 
             @Override

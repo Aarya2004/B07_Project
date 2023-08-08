@@ -33,11 +33,12 @@ public class StoreOwnerLoginPresenter {
         }
     }
 
-    public void confirm_user(String password, String storeName){
+    public boolean confirm_user(String password, String storeName){
         if(!password.equals(userPass)){
             view.displayToast("Incorrect password!");
+            return false;
         }else{
-            view.user_confirmed(storeName);
+            return true;
         }
     }
 
