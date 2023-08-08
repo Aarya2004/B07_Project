@@ -61,6 +61,12 @@ public class ShopperActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.orders) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.shopperContainer, orders).commit();
                     return true;
+                } else if (item.getItemId() == R.id.shopperLogout) {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(ShopperActivity.this, LoginActivityView.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
                 }
                 return false;
             }
@@ -173,5 +179,9 @@ public class ShopperActivity extends AppCompatActivity {
                 if(replace) nav.setSelectedItemId(R.id.orders);
             }
         });
+    }
+
+    public void onBackPressed() {
+        // Nothing
     }
 }

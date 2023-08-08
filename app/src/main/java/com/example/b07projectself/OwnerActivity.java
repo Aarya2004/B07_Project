@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -67,6 +68,12 @@ public class OwnerActivity extends AppCompatActivity {
                 }
                 else if (item.getItemId() == R.id.createproduct) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.ownerContainer, create).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.ownerLogout) {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(OwnerActivity.this, LoginActivityView.class);
+                    startActivity(intent);
+                    finish();
                     return true;
                 }
                 return false;
@@ -149,5 +156,9 @@ public class OwnerActivity extends AppCompatActivity {
                 if (replace) getSupportFragmentManager().beginTransaction().replace(R.id.ownerContainer, orders).commit();
             }
         });
+    }
+
+    public void onBackPressed() {
+        // Nothing
     }
 }
