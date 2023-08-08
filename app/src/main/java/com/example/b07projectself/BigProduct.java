@@ -34,7 +34,7 @@ public class BigProduct extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_product_big, container, false);
         ((TextView)view.findViewById(R.id.bigProductName)).setText(product.getName());
-        ((TextView)view.findViewById(R.id.bigProductPrice)).setText(Double.toString(product.getPrice()));
+        ((TextView)view.findViewById(R.id.bigProductPrice)).setText("$"+Double.toString(product.getPrice()));
         ((TextView)view.findViewById(R.id.bigProductbrand)).setText(product.getBrand());
         ((TextView)view.findViewById(R.id.bigProductDescription)).setText(product.getDesc());
         ((Button)view.findViewById(R.id.bigProductBack)).setOnClickListener(new View.OnClickListener() {

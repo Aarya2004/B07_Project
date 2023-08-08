@@ -58,9 +58,9 @@ public class OwnerProductListAdapter extends RecyclerView.Adapter<OwnerProductLi
     @Override
     public void onBindViewHolder(OwnerProductListAdapter.ViewHolder holder, int position) {
         if (products == null) return;
-        Product p = products.get(position).second;
+        Product p = products.get(holder.getAdapterPosition()).second;
         holder.name.setText(p.getName());
-        holder.price.setText(Double.toString(p.getPrice()));
+        holder.price.setText("$"+Double.toString(p.getPrice()));
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,19 +88,19 @@ public class OwnerProductListAdapter extends RecyclerView.Adapter<OwnerProductLi
                 done.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Product x = products.get(position).second;
+                        Product x = products.get(holder.getAdapterPosition()).second;
                         x.setBrand(brand.getText().toString());
                         x.setDesc(desc.getText().toString());
                         x.setName(name.getText().toString());
                         x.setPrice(Double.parseDouble(price.getText().toString()));
-                        frag.editProduct(products.get(position).first, x);
+                        frag.editProduct(products.get(holder.getAdapterPosition()).first, x);
                         pop.dismiss();
                     }
                 });
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        frag.delProduct(products.get(position).first, products.get(position).second);
+                        frag.delProduct(products.get(holder.getAdapterPosition()).first, products.get(holder.getAdapterPosition()).second);
                         pop.dismiss();
                     }
                 });
