@@ -9,8 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Cart extends Fragment {
 
@@ -31,6 +36,17 @@ public class Cart extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
+
+        ((Button)view.findViewById(R.id.buttonPurchase)).setOnClickListener(new View.OnClickListener() {
+            DatabaseReference d = FirebaseDatabase.getInstance().getReference("orders");
+            @Override
+            public void onClick(View view) {
+                for (Order o : orders) {
+                    d.child(UUID.randomUUID().toString()).setValue(o);
+                }
+                getParentFragmentManager().setFragmentResult("order", new Bundle());
+            }
+        });
 
         RecyclerView rv = view.findViewById(R.id.cartItemList);
         rv.setAdapter(new CartListAdapter(orders, this));

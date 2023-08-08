@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,7 +19,7 @@ public class ProductList extends Fragment {
 
     public ProductList(){}
 
-    public ProductList(List<Pair<String, Product>> l ) { products = l;}
+    public ProductList(List<Pair<String, Product>> l) { products = l;}
 
     @Override
     public void onCreate(Bundle b) {
@@ -34,6 +35,9 @@ public class ProductList extends Fragment {
                 getParentFragmentManager().setFragmentResult("back", new Bundle());
             }
         });
+        if (products == null || products.isEmpty())
+        ((TextView)view.findViewById(R.id.shopperProductListTitle)).setText("No Products...");
+        else ((TextView)view.findViewById(R.id.shopperProductListTitle)).setText(products.get(0).second.getStoreName());
         RecyclerView rv = view.findViewById(R.id.shopperProductList);
         rv.setAdapter(new ProductListAdapter(products, this));
         rv.setLayoutManager(new LinearLayoutManager(this.getContext()));
