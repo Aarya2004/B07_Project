@@ -5,22 +5,22 @@
     android:layout_height="match_parent">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/ownerContainer"
+        android:id="@+id/shopperContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/storeOwnerNav"
+        app:layout_constraintBottom_toTopOf="@+id/shopperNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/storeOwnerNav"
+        android:id="@+id/shopperNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/ownermenu" />
+        app:menu="@menu/shoppermenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

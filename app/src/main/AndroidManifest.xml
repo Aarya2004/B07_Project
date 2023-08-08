@@ -25,6 +25,9 @@
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".ShopperActivity" android:exported="true">
+            <intent-filter><action android:name="android.intent.action.DEFAUL"/> </intent-filter>
+        </activity>
     </application>
 
 </manifest>

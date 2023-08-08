@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/cardview_light_background"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/quantitySelectDown"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/minus_circle_fill" />
+
+    <EditText
+        android:id="@+id/quantitySelect"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:inputType="number"
+        android:digits="0123456789"
+        app:layout_constraintStart_toEndOf="@+id/quantitySelectDown"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/quantitySelectUp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quantitySelect"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/plus_circle" />
+
+    <Button
+        android:id="@+id/quantitySelectDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quantitySelect" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
