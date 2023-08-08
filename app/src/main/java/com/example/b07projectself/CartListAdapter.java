@@ -42,7 +42,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (orders == null) return;
         holder.productName.setText(orders.get(position).getProductName());
-        String txt = "Total Price: " + Double.toString(orders.get(position).getPrice()*orders.get(position).getQuantity());
+        String txt = "Total Price: $" + Double.toString(orders.get(position).getPrice()*orders.get(position).getQuantity());
         holder.productPrice.setText(txt);
         holder.productEdit.setOnClickListener(new View.OnClickListener() {
             @Override
