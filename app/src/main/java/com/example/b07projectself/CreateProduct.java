@@ -52,6 +52,10 @@ public class CreateProduct extends Fragment {
                 if (name.length() == 0 || brand.length() == 0 || price.length() == 0 || desc.length() == 0) return;
                 Bundle result = new Bundle();
                 result.putSerializable("product", new Product(name.getText().toString(), brand.getText().toString(), Double.parseDouble(price.getText().toString()), desc.getText().toString(), storeName));
+                name.setText("");
+                brand.setText("");
+                price.setText("");
+                desc.setText("");
                 getParentFragmentManager().setFragmentResult("newProduct", result);
             }
         });

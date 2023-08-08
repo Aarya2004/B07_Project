@@ -148,8 +148,9 @@ public class ShopperActivity extends AppCompatActivity {
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
                     stores.add(new Pair<>(d.getKey(), d.getValue(Store.class)));
                 }
+                if(shop!=null) getSupportFragmentManager().beginTransaction().remove(shop).commit();
                 shop = new StoreList(stores);
-                getSupportFragmentManager().beginTransaction().replace(R.id.shopperContainer, shop).commit();
+                nav.setSelectedItemId(R.id.shop);
             }
         });
     }
@@ -167,6 +168,7 @@ public class ShopperActivity extends AppCompatActivity {
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
                     sentOrders.add(new Pair<>(d.getKey(), d.getValue(Order.class)));
                 }
+                if(orders!= null) getSupportFragmentManager().beginTransaction().remove(orders).commit();
                 orders = new ShopperOrders(sentOrders);
                 if(replace) nav.setSelectedItemId(R.id.orders);
             }

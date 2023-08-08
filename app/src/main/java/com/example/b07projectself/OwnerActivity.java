@@ -39,8 +39,9 @@ public class OwnerActivity extends AppCompatActivity {
 
     User user;
     Store store;
+    BottomNavigationView nav;
     List<Pair<String, Product>> productsList;
-    // List<Pair<String, >>
+    List<Pair<String, Order>> ordersList;
     @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
@@ -48,21 +49,20 @@ public class OwnerActivity extends AppCompatActivity {
         user = intent.getSerializableExtra("user", User.class);
         setContentView(R.layout.store_owner_layout);
 
-        orders = new OwnerOrders();
         create = new CreateProduct(user.getStoreName());
-        updateProducts();
+        updateProducts(true);
 
-        BottomNavigationView nav = findViewById(R.id.storeOwnerNav);
+        nav = findViewById(R.id.storeOwnerNav);
 
         nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.myproducts) {
-                    updateProducts();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.ownerContainer, products).commit();
                     return true;
                 }
                 else if (item.getItemId() == R.id.ownerorders) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.ownerContainer, orders).commit();
+                    updateOrders(true);
                     return true;
                 }
                 else if (item.getItemId() == R.id.createproduct) {
@@ -82,7 +82,7 @@ public class OwnerActivity extends AppCompatActivity {
                 store.addProduct(pid);
                 db.child("products").child(pid).setValue(p);
                 db.child("stores").child(user.getStoreName()).setValue(store);
-                updateProducts();
+                updateProducts(true);
             }
         });
 
@@ -91,7 +91,7 @@ public class OwnerActivity extends AppCompatActivity {
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Product p = result.getSerializable("product", Product.class);
                 FirebaseDatabase.getInstance().getReference("products").child(result.getString("pid")).setValue(p);
-                updateProducts();
+                updateProducts(true);
             }
         });
 
@@ -101,27 +101,52 @@ public class OwnerActivity extends AppCompatActivity {
                 store.getProducts().remove(result.getString("pid"));
                 FirebaseDatabase.getInstance().getReference("products").child(result.getString("pid")).removeValue();
                 FirebaseDatabase.getInstance().getReference("stores").child(user.getStoreName()).setValue(store);
-                updateProducts();
+                updateProducts(true);
+            }
+        });
+        getSupportFragmentManager().setFragmentResultListener("completeOrder", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                updateOrders(true);
             }
         });
     }
 
-    public void updateProducts() {
+    public void updateProducts(boolean replace) {
         FirebaseDatabase.getInstance().getReference().child("stores").child(user.getStoreName()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 store = task.getResult().getValue(Store.class);
-                productsList=new ArrayList<>();
                 Query ref = FirebaseDatabase.getInstance().getReference("products").orderByChild("storeName").equalTo(user.getStoreName());
                 ref.get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                     @Override
                     public void onSuccess(DataSnapshot t) {
+                        productsList=new ArrayList<>();
                         for (DataSnapshot ds : t.getChildren()) {
                             productsList.add(new Pair<>(ds.getKey(), ds.getValue(Product.class)));
                         }
-                        getSupportFragmentManager().beginTransaction().replace(R.id.ownerContainer, new OwnerProducts(productsList)).commit();
+                        if (products != null) getSupportFragmentManager().beginTransaction().remove(products).commit();
+                        products = new OwnerProducts(productsList);
+                        if (replace) nav.setSelectedItemId(R.id.myproducts);
                     }
                 });
+            }
+        });
+    }
+
+    public void updateOrders(boolean replace) {
+        Query q = FirebaseDatabase.getInstance().getReference("orders").orderByChild("storeName").equalTo(user.getStoreName());
+        q.get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                ordersList=new ArrayList<>();
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    if (!d.getValue(Order.class).isCompleted())
+                        ordersList.add(new Pair<>(d.getKey(), d.getValue(Order.class)));
+                }
+                if (orders != null) getSupportFragmentManager().beginTransaction().remove(orders).commit();
+                orders = new OwnerOrders(ordersList);
+                if (replace) getSupportFragmentManager().beginTransaction().replace(R.id.ownerContainer, orders).commit();
             }
         });
     }
