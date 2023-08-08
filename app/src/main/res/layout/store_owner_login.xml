@@ -7,7 +7,7 @@
     android:background="#FFEDDB"
     android:orientation="vertical"
     android:padding="40dp"
-    tools:context=".StoreOwnerLogin">
+    tools:context=".StoreOwnerLoginView">
 
     <TextView
         android:id="@+id/textView2"
