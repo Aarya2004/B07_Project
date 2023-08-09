@@ -2,32 +2,20 @@ package com.example.b07projectself;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
+import android.widget.TextView;
 import java.util.List;
 
 public class OwnerProducts extends Fragment {
 
     List<Pair<String, Product>> products;
-    Store store;
     public OwnerProducts() {
     }
     public OwnerProducts(List<Pair<String, Product>> l) {
@@ -43,6 +31,8 @@ public class OwnerProducts extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_myproducts, container, false);
+
+        ((TextView)view.findViewById(R.id.myproducts_label)).setText(products.isEmpty() ? "No Products Yet..." : "My Store");
 
         RecyclerView rv = view.findViewById(R.id.ownerProductList);
 
