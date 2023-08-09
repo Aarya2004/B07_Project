@@ -56,7 +56,7 @@ public class LoginActivityView extends AppCompatActivity {
     }
 
     public void displayToast(String message){
-        Toast.makeText(LoginActivityView.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivityView.this, message, Toast.LENGTH_LONG).show();
     }
 
     public void registerOwner(){

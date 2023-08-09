@@ -44,7 +44,7 @@ public class LoginActivityModel {
                             });
                         } else {
                             // If sign in fails, display a message to the user.
-                            presenter.displayToast("Authentication failed.");
+                            presenter.displayToast(task.getException().getMessage());
                         }
                     }
                 });
@@ -64,7 +64,7 @@ public class LoginActivityModel {
                             presenter.toApp(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            presenter.displayToast("Authentication failed.");
+                            presenter.displayToast(task.getException().getMessage());
                         }
                     }
                 });
