@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class Product_Page_StoreOwner extends AppCompatActivity {
+public class ShopperProductPreviewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.store_owner_order_page);
+        setContentView(R.layout.shopper_product_preview);
     }
 }
