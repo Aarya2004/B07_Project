@@ -14,24 +14,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.B07Project"
         tools:targetApi="31">
-        <activity android:name=".StoreOwnerOrders"
-            android:exported="true">
-
-        </activity>
-        <activity android:name=".StoreOwnerLoginView"></activity>
-        <activity android:name=".StoreOwnerRegister"></activity>
-        <activity android:name=".StoreOwnerHomepage"></activity>
-
-        <activity android:name=".ShopperLogin"></activity>
-        <activity android:name=".ShopperRegister"></activity>
-        <activity android:name=".ShopperHomepage"></activity>
-        <activity android:name=".ShopperStores"></activity>
-
-        <activity android:name=".ShopperOrders"></activity>
-
-
-
-
+        <activity
+            android:name=".Product_Page_StoreOwner"
+            android:exported="false" />
+        <activity
+            android:name=".StoreOwnerOrders"
+            android:exported="true"></activity>
+        <activity android:name=".StoreOwnerLoginView" />
+        <activity android:name=".StoreOwnerRegister" />
+        <activity android:name=".StoreOwnerHomepage" />
+        <activity android:name=".ShopperLogin" />
+        <activity android:name=".ShopperRegister" />
+        <activity android:name=".ShopperHomepage" />
+        <activity android:name=".ShopperStores" />
+        <activity android:name=".ShopperOrders" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -44,8 +40,5 @@
             </intent-filter>
         </activity>
     </application>
-
-
-
 
 </manifest>
