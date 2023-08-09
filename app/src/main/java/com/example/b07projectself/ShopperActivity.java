@@ -125,7 +125,7 @@ public class ShopperActivity extends AppCompatActivity {
         getSupportFragmentManager().setFragmentResultListener("updateCart", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                updateCart(false);
+                updateCart(true);
             }
         });
 
@@ -161,6 +161,7 @@ public class ShopperActivity extends AppCompatActivity {
         });
     }
     public void updateCart(boolean replace) {
+        if (cart != null) getSupportFragmentManager().beginTransaction().remove(cart).commit();
         cart = new Cart(cartList);
         if(replace) nav.setSelectedItemId(R.id.cart);
     }
