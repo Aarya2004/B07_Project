@@ -66,6 +66,7 @@ public class LoginActivityView extends AppCompatActivity {
         Button close = view.findViewById(R.id.cancelPopup);
         Button reg = view.findViewById(R.id.gotStoreName);
         EditText name = view.findViewById(R.id.editStoreName);
+        name.setText("");
 
         PopupWindow pop = new PopupWindow(view, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT, true);
         pop.setOutsideTouchable(false);
